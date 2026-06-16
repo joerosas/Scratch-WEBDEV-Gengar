@@ -1,0 +1,165 @@
+<!--
+Joe Rosas
+Online - Prof.Britsch
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Gengar</title>
+    <link rel="stylesheet" href="../styles/styles.css">
+
+</head>
+<body>
+
+    <div class="nav">
+        <a href="index.html" id="top">Home</a> |
+        <a href="#">About Gengar</a> |
+        <a href="https://joerosas.github.io/Better-WEBDEV-Website/index.html">Professional Resume</a>
+    </div>
+
+    <div class="intro">
+        <h4>About Gengar</h4>
+
+        <p class="justify">
+            Hi there! My name is Gengar, and I'm a Ghost- and Poison-type Pokémon. Don't let my spooky appearance fool you—I'm playful, energetic, and always ready for an adventure. I enjoy exploring new places, learning new things, and taking on exciting challenges alongside my trainer. No matter the situation, I bring plenty of energy and enthusiasm wherever I go. It's great to meet you! I look forward to sharing many adventures with you.
+        </p>
+
+        <img src="../images/G1.jpeg" alt="Gengar stickin his tongue out" height="250">
+        <img src="../images/G2.jpeg" alt="Gengar using shadow ball" height="250">
+        <img src="../images/G3.jpeg" alt="Gengar as a shadow" height="250">
+        <img src="../images/G4.jpeg" alt="Gengar jumping" height="250">
+    </div>
+
+    <h2>Gengar Jump Game</h2>
+
+    <button onclick="startGame()">Start Game</button>
+    
+    <div id="game">
+        <img id="gengar" src="../images/G1.jpeg" alt="Gengar">
+        <div id="obstacle"></div>
+    </div>
+    
+    <!--The GENGAR GAME-->
+
+    <p>Score: <span id="score">0</span></p>
+    
+    <script>
+    const gengar = document.getElementById("gengar");
+    const obstacle = document.getElementById("obstacle");
+    const scoreDisplay = document.getElementById("score");
+    
+    let isJumping = false;
+    let position = 0;
+    let obstacleLeft = 580;
+    let score = 0;
+    let gameStarted = false;
+    
+    document.addEventListener("keydown", function(event) {
+    
+        if (event.code === "Space") {
+    
+            event.preventDefault();
+    
+            if (!isJumping && gameStarted) {
+                jump();
+            }
+        }
+    
+    });
+    
+    function jump() {
+    
+        isJumping = true;
+    
+        let up = setInterval(function() {
+    
+            if (position >= 100) {
+    
+                clearInterval(up);
+    
+                let down = setInterval(function() {
+    
+                    if (position <= 0) {
+                        clearInterval(down);
+                        isJumping = false;
+                    }
+    
+                    position -= 5;
+                    gengar.style.bottom = position + "px";
+    
+                }, 20);
+            }
+    
+            position += 5;
+            gengar.style.bottom = position + "px";
+    
+        }, 20);
+    }
+    
+    function startGame() {
+    
+        if (gameStarted) return;
+    
+        gameStarted = true;
+    
+        setInterval(function() {
+    
+            obstacleLeft -= 5;
+    
+            if (obstacleLeft < -20) {
+                obstacleLeft = 580;
+    
+                score++;
+                scoreDisplay.textContent = score;
+            }
+    
+            obstacle.style.left = obstacleLeft + "px";
+    
+            if (
+                obstacleLeft > 40 &&
+                obstacleLeft < 90 &&
+                position < 50
+            ) {
+                alert("Game Over! Score: " + score);
+                location.reload();
+            }
+    
+        }, 20);
+    }
+    </script>
+    
+<!--The end of the GENGAR GAME-->
+
+    <div class="facts">
+        <ol>
+            <li>Best Moves
+                <ul>
+                    <li>Shadow Ball</li>
+                    <li>Sludge Bomb</li>
+                    <li>Hypnosis</li>
+                    <li>Dream Eater</li>
+
+                </ul>
+            </li>
+
+            <li>Lore
+                <ul>
+                    <li>Can blend into shadows and silently follow people. If you suddenly feel colder or notice a shadow moving on its own, a Gengar might be nearby.</li>
+                    <li>Rather than being purely evil, I am often described as a prankster. I enjoy startling people, playing tricks, and making myself known in unexpected ways.</li>
+                    <li>Several Pokédex entries mention that Gengar absorbs heat from its surroundings. When it is near, the temperature can drop, causing people to feel a sudden chill.</li>
+                </ul>
+            </li>
+        </ol>
+
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/iM4UrcNUvaM?si=2WFInelVr0K1W1o_" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
+
+        <br><br>
+        Back to the <a href="#top">top</a>
+    </div>
+    
+    
+   
+</body>
